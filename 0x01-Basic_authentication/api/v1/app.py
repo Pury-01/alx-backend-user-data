@@ -61,7 +61,7 @@ def before_request():
         return
 
     if auth.authorization_header(request) is None:
-        abo<F3>rt(401)
+        abort(401)
 
     if auth.current_user(request) is None:
         abort(403)
