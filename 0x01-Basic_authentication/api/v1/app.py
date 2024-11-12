@@ -15,7 +15,10 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
 AUTH_TYPE = getenv("AUTH_TYPE")
-if AUTH_TYPE == "auth":
+if AUTH_TYPE == "BasicAuth":
+    from api.v1.auth.auth import BasicAuth
+    auth = BasicAuth()
+else:
     from api.v1.auth.auth import Auth
     auth = Auth()
 
@@ -45,7 +48,7 @@ def forbidden(error) -> str:
 def before_request():
     """Enforce authorization rules.
     """
-    if auth is None:
+    if Auth is None:
         return
 
     public_paths = [
