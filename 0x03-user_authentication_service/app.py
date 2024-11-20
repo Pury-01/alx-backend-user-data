@@ -4,14 +4,16 @@
 from flask import Flask, jsonify
 
 
+# Initialize Flask app 
 app = Flask(__name__)
 
 
+# define a single GET route
 @app.route("/", methods=['GET'])
 def payload():
-    """payload method that returns a dict in json
+    """Returns a JSON payload
     """
-    return jsonify({"message": "Bievenue"})
+    return jsonify({"message": "Bienvenue"})
 
 
 if __name__ == "__main__":
