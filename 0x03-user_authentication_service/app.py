@@ -9,6 +9,8 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
 def payload():
+    """payload method that returns a dict in json
+    """
     return jsonify({"message": "Bievenue"})
 
 
