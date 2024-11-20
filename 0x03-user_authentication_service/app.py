@@ -4,7 +4,7 @@
 from flask import Flask, jsonify, Response
 
 
-# Initialize Flask app 
+# Initialize Flask app
 app = Flask(__name__)
 
 
