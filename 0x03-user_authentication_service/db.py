@@ -53,6 +53,6 @@ class DB:
                 raise NoResultFound()
 
             return user
-        except AttributeError as e:
-            # Raised if an invalid column is passed in **kwargs
-            raise InvalidRequestError from e
+        except AttributeError:
+            # Raised if an invalid field is passed in kwargs
+            raise InvalidRequestError()
