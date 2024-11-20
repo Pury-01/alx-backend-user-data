@@ -8,7 +8,6 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from typing import Any
-import bcrypt
 
 from user import Base, User
 
@@ -46,7 +45,7 @@ class DB:
     def find_user_by(self, **kwargs: Any) -> str:
         """Returns the first row found in the users table
         as filtered by the method's input arguments
-        
+
         try:
              Query db using filter_by with ** kwargs
             user = self._session.query(User).filter_by(**kwargs).first()
