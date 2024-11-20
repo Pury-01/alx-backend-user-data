@@ -1,7 +1,7 @@
-#!/usr/bin/env  python3
+#!/usr/bin/env python3
 """Flask Application
 """
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 
 
 # Initialize Flask app 
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # define a single GET route
 @app.route("/", methods=['GET'])
-def payload():
+def payload() -> Response:
     """Returns a JSON payload
     """
     return jsonify({"message": "Bienvenue"})
