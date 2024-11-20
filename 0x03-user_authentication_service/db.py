@@ -8,6 +8,7 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from typing import Any
+import bcrypt
 
 from user import Base, User
 
@@ -45,9 +46,9 @@ class DB:
     def find_user_by(self, **kwargs: Any) -> str:
         """Returns the first row found in the users table
         as filtered by the method's input arguments
-        """
+        
         try:
-            # Query db using filter_by with ** kwargs
+             Query db using filter_by with ** kwargs
             user = self._session.query(User).filter_by(**kwargs).first()
 
             if user is None:
@@ -56,8 +57,17 @@ class DB:
             return user
 
         except AttributeError:
-            # Raised if an invalid field is passed in kwargs
+             Raised if an invalid field is passed in kwargs
             raise InvalidRequestError()
+        """
+        for key in kwargs:
+            if not hasattr(User, key):
+                raise InvalidRequestError()
+
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if user is None:
+            raise NoResultFound()
+        return user
 
     def update_user(self, user_id: int, **kwargs: Any) -> None:
         """method that updates a user and return None
