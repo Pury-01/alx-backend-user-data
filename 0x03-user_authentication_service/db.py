@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+from typing import Any
 
 from user import Base, User
 
@@ -41,7 +42,7 @@ class DB:
 
         return new_user
 
-    def find_user_by(self, **kwargs) -> str:
+    def find_user_by(self, **kwargs: Any) -> str:
         """Returns the first row found in the users table
         as filtered by the method's input arguments
         """
@@ -53,6 +54,29 @@ class DB:
                 raise NoResultFound()
 
             return user
+
         except AttributeError:
             # Raised if an invalid field is passed in kwargs
             raise InvalidRequestError()
+
+    def update_user(self, user_id: int, **kwargs: Any) -> None:
+        """method that updates a user and return None
+        """
+        try:
+            # locate user by id using the find_user_by method
+            user = self.find_user_by(id=user_id)
+
+            # iterate thru keyword arguments
+            for key, value in kwargs.items():
+                # check for user object attribute
+                if not hasattr(user, key):
+                    raise ValueError()
+
+                # update attribute
+                setattr(user, key, value)
+
+            # commit changes to the database
+            self._session.commit()
+
+        except NoResultFound:
+            raise ValueError()
