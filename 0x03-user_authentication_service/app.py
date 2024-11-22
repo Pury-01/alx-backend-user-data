@@ -86,7 +86,7 @@ def profile():
     if not session_id:
         abort(403)
 
-    user = Auth.get_user_from_session_id(session_id)
+    user = AUTH.get_user_from_session_id(session_id)
 
     if not user:
         abort(403)
