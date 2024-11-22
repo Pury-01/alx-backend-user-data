@@ -113,7 +113,7 @@ class Auth:
             pass
 
     def get_reset_password_token(self, email: str) -> str:
-        """resets password token
+        """resets password token, returns the reset token
         """
 
         try:
